@@ -1,24 +1,22 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { TopNavigationBar } from "./components/header/topNavigationBar/topNavigationBar";
+import Home from "./pages/home";
+// import dummy from "../../db/mockAttraction.json";
+import dummy from "../src/db/mockAttraction.json";
+import { useState } from "react";
 
 function App() {
+
+  const [data, setData] = useState(dummy);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <BrowserRouter>
+      <TopNavigationBar data={data} setData={setData}/>
+      <Routes>
+        <Route path="/" element={<Home items={data}/>} />
+      </Routes>
+    </BrowserRouter>
   );
 }
 
