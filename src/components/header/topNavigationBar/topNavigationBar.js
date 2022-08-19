@@ -2,6 +2,24 @@ import styles from "./topNavigationBar.module.css";
 import { Link } from "react-router-dom";
 import React , {useState} from "react";
 
+export function handleSearch (attr, data, input, setData){
+
+    const resultOfSearch = [];
+
+    // console.log(input);
+    console.log("data : ", data);
+    data.forEach((item) => {
+            // console.log(item.MAIN_TITLE);
+            const attribute = item[attr];
+            // console.log("data : ", item);
+            if (attribute.includes(input)) {
+                resultOfSearch.push(item);
+            }
+        }
+    )
+
+    setData(resultOfSearch);
+}
 export const TopNavigationBar = ({data, setData}) => {
 
   const [input, setInput] = useState('');
@@ -10,30 +28,11 @@ export const TopNavigationBar = ({data, setData}) => {
     setInput(e.target.value);
   }
 
-  const handleSearch = ()=>{
-    const test = [];
-
-      // console.log(input);
-      // console.log("data : ", data);
-    data.forEach((item) => {
-        // console.log(item.MAIN_TITLE);
-          const title = item.MAIN_TITLE;
-            // console.log("data : ", item);
-          if (title.includes(input)) {
-            test.push(item)
-          }
-        }
-    )
-
-    setData(test);
-  }
-
   const onKeyPress = (e)=>{
       if(e.key === 'Enter'){
-          handleSearch();
+          handleSearch("MAIN_TITLE",data, input, setData);
       }
   }
-
 
   return (
     <header className={styles.header}>
@@ -45,7 +44,7 @@ export const TopNavigationBar = ({data, setData}) => {
         </Link>
         <div className={styles.input_wrap}>
           <input type="text" placeholder="가고싶은 관광지를 검색해보세요!" onChange={onChange} onKeyDown={onKeyPress}/>
-          <img src="/images/icon-search.svg" onClick={handleSearch} alt="search" />
+          <img src="/images/icon-search.svg" onClick={()=>handleSearch("MAIN_TITLE",data, input, setData)} alt="search" />
         </div>
       </div>
 

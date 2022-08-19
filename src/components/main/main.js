@@ -1,6 +1,7 @@
 import styles from "./main.module.css";
 import { EventBanner } from "../eventBanner/eventBanner";
 import { Product } from "../products/product";
+import SelectBox from "./selectbox/SelectBox";
 
 export const Main = (props) => {
   const mainp = props.homeprops;
@@ -8,6 +9,7 @@ export const Main = (props) => {
   return (
     <>
       <EventBanner />
+        <SelectBox data={props.dataForCategory} setData={props.setData}></SelectBox>
       <div className={styles.filter}>
         <p>별점순</p>
         <p>리뷰순</p>
