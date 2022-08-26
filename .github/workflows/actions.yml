@@ -20,7 +20,7 @@ jobs :
           node-version : 18.7.0
           cash : npm
       - run : npm ci
-      - run : npm test
+#      - run : npm test
       - run : npm run build
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
