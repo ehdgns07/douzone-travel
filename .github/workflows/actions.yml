@@ -1,0 +1,29 @@
+name : Actions
+on :
+  push :
+    branches :
+      - main
+  pull_request:
+    branches:
+      - main
+    types : [ closed ]
+
+jobs :
+  build :
+    runs-on : ubuntu-latest
+    steps :
+      - uses : actions/checkout@v3
+      #        - 체크 아웃: 내 브렌치로 와서 작업 할 수 있도록 도와주는 명령어
+      - uses : actions/setup-node@v3
+        with :
+          node-version : 18.7.0
+          cash : npm
+      - run : npm ci
+      - run : npm test
+      - run : npm run build
+      - name: Deploy
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.DEPLOY_TOKEN }}
+          #           secrets에 등록하지 않아도 PAT에서 같은 이름으로 등록하면 동작할 수 있다
+          publish_dir: ./build
