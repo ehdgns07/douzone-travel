@@ -1,38 +1,24 @@
 import styles from "./topNavigationBar.module.css";
 import { Link } from "react-router-dom";
-import React , {useState} from "react";
+import React, { useState } from "react";
+import { AiOutlineStar } from "react-icons/ai";
+import HandleSearch from "../../search/HandleSearch";
+import { GoSignIn } from "react-icons/go";
 
-export function handleSearch (attr, data, input, setData){
-
-    const resultOfSearch = [];
-
-    // console.log(input);
-    console.log("data : ", data);
-    data.forEach((item) => {
-            // console.log(item.MAIN_TITLE);
-            const attribute = item[attr];
-            // console.log("data : ", item);
-            if (attribute.includes(input)) {
-                resultOfSearch.push(item);
-            }
-        }
-    )
-
-    setData(resultOfSearch);
-}
-export const TopNavigationBar = ({data, setData}) => {
-
+export const TopNavigationBar = ({ data, setData, like, setSelectPage, dataForSearching, login, login2}) => {
   const [input, setInput] = useState('');
 
-  const onChange = (e) =>{
+  const onChange = (e) => {
     setInput(e.target.value);
   }
 
-  const onKeyPress = (e)=>{
-      if(e.key === 'Enter'){
-          handleSearch("MAIN_TITLE",data, input, setData);
-      }
+  const onKeyPress = (e) => {
+    if (e.key === 'Enter') {
+      HandleSearch(dataForSearching, setData, setSelectPage, input);
+    }
   }
+
+  
 
   return (
     <header className={styles.header}>
@@ -43,19 +29,41 @@ export const TopNavigationBar = ({data, setData}) => {
           </h1>
         </Link>
         <div className={styles.input_wrap}>
-          <input type="text" placeholder="가고싶은 관광지를 검색해보세요!" onChange={onChange} onKeyDown={onKeyPress}/>
-          <img src="/images/icon-search.svg" onClick={()=>handleSearch("MAIN_TITLE",data, input, setData)} alt="search" />
+          <input type="text" placeholder="가고싶은 관광지를 검색해보세요!" onChange={onChange} onKeyDown={onKeyPress} />
+          <img src="/images/icon-search.svg" onClick={() => (HandleSearch(dataForSearching, setData, setSelectPage, input, "MAIN_TITLE"))} alt="search" />
         </div>
       </div>
 
       <div className={styles.menu}>
-        <Link to="">
-          <div className={styles.mypage}>
-            <img src="/images/icon-user.svg" alt="user" />
-            <span>로그인</span>
+        <Link to="/like">
+          <div className={styles.like}>
+            <AiOutlineStar style={{ width: "32px", height: "32px", color: "black" }} />
+            <span>즐겨찾기</span>
+            {like.length >= 1 ? (
+              <div className={styles.count}>
+                <p>{like.length}</p>
+              </div>
+            ) : ""}
           </div>
         </Link>
+        {login ?
+        <span className="loginText" style={{marginLeft : '20px'}}>안녕하세요! <span style={{color:'red', fontWeight: 'bold'}}>{login2}</span>님</span>
+        :
+        <div className="loginBtn" style={{ display: 'flex' }}>
+          <Link to="/login">
+            <div className={styles.mypage}>
+              <img src="/images/icon-user.svg" alt="user" />
+              <span>로그인</span>
+            </div>
+          </Link>
+          <Link to={"/signIn"}>
+            <div className={styles.mypage}>
+              <GoSignIn style={{ width: "32px", height: "32px", color: "black" }} />
+              <span>가입</span>
+            </div>
+          </Link>
+        </div>}
       </div>
     </header>
   );
-};
+}
