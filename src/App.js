@@ -46,7 +46,8 @@ function App() {
         setSelectPage={setSelectPage}
         dataForSearching={dataForSearching}
         login={login} setLogin={setLogin}
-        login2={login2} setLogin2={setLogin2} />
+        login2={login2} setLogin2={setLogin2}
+      />
       <Provider store={store}>
         <Routes>
           <Route path="/" element={<Home
