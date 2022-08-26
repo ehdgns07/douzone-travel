@@ -25,12 +25,12 @@ export const TopNavigationBar = ({ data, setData, like, setSelectPage, dataForSe
       <div className={styles.inner}>
         <Link to="/">
           <h1 className={styles.logo}>
-            <img src="/images/logo.png" alt="logo" />
+            <img src="../../images/logo.png" alt="logo" />
           </h1>
         </Link>
         <div className={styles.input_wrap}>
           <input type="text" placeholder="가고싶은 관광지를 검색해보세요!" onChange={onChange} onKeyDown={onKeyPress} />
-          <img src="/images/icon-search.svg" onClick={() => (HandleSearch(dataForSearching, setData, setSelectPage, input, "MAIN_TITLE"))} alt="search" />
+          <img src="../../images/icon-search.svg" onClick={() => (HandleSearch(dataForSearching, setData, setSelectPage, input, "MAIN_TITLE"))} alt="search" />
         </div>
       </div>
 
@@ -52,7 +52,7 @@ export const TopNavigationBar = ({ data, setData, like, setSelectPage, dataForSe
         <div className="loginBtn" style={{ display: 'flex' }}>
           <Link to="/login">
             <div className={styles.mypage}>
-              <img src="/images/icon-user.svg" alt="user" />
+              <img src="../../images/icon-user.svg" alt="user" />
               <span>로그인</span>
             </div>
           </Link>
